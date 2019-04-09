@@ -57,7 +57,7 @@ namespace TestCase
             }
 
             //Сохраняем стартовые координаты на случай если жадный алгоритм будет выходить из центральной ноды
-            Program.starti = curi;
+            starti = curi;
             startj = curj;
 
 
@@ -140,7 +140,6 @@ namespace TestCase
         static Tuple<int, int> Closest_unvisited (int x, int y, int[,] matrix, bool[] visited)
         {
             //Нам нужна первая ещё не посещённая нода "около" искомой (искомая это угловая нода, варианта всего два и один из них уже посещён, так что подойдёт первая)
-            Tuple<int, int> tuple;
 
             if (x + 1 < 3) //Если не вышли за границы массива
                 if (visited[matrix[x + 1, y]] == false) //Если нода ещё не посещенная
