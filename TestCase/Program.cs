@@ -20,7 +20,7 @@ namespace TestCase
             int curi = 0, curj = 0; 
             string answer = "";
 
-            Console.WriteLine("Введите числа ");
+            Console.WriteLine("Введите числа от одного до девяти в формате (число число число) на строчку");
             string line;
             for (int i = 0; i < 3; i++)
             {
@@ -112,24 +112,23 @@ namespace TestCase
                 }
 
 
-            x = maxi;
-            y = maxj;
-
-            if (x == 1 && y == 1) //Если мы идем из центральной ноды
+            if (x == 1 && y == 1 && (count == 2 || count == 4)) //Если мы идем из центральной ноды на втором и четвертом шаге (когда жадина может застопориться)
             {
-                if (count == 2 || count == 4) //На втором и четвертом шаге (когда жадина может застопориться)
-                {
-                    var Tuple = Closest_unvisited(starti, startj, matrix, visited); //Вместо ноды, где максимальное значение, мы направляем его в ноду ближайшую к стартовому ноду.
-                    x = Tuple.Item1;
-                    y = Tuple.Item2;
 
-                }
+                var Tuple = Closest_unvisited(starti, startj, matrix, visited); //Вместо ноды, где максимальное значение, мы направляем его в ноду ближайшую к стартовому ноду.
+                x = Tuple.Item1;
+                y = Tuple.Item2;
+                visited[matrix[x, y]] = true;
+
             }
-
+            else
+            {
                 //Из всех остальных нод
                 //После того как "жадный" вариант нашли, ставим ноду как посещенную, и смещаемся.
-               
-            visited[matrix[x, y]] = true;
+                x = maxi;
+                y = maxj;
+                visited[matrix[x, y]] = true;
+            }
 
 
             return;
