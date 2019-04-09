@@ -20,12 +20,11 @@ namespace TestCase
             int curi = 0, curj = 0; 
             string answer = "";
 
-            Console.WriteLine("Введите числа");
+            Console.WriteLine("Введите числа ");
             string line;
             for (int i = 0; i < 3; i++)
             {
-                line = Console.ReadLine();
-                while (!(Regex.Match(line, @"^[0-9] [0-9] [0-9]$").Success))
+                while (!(Regex.Match(line = Console.ReadLine(), @"^[0-9] [0-9] [0-9]$").Success))
                 {
                     Console.WriteLine("Входная строка имела неправильный формат (число число число), попробуйте ещё раз");
                 }
@@ -78,7 +77,7 @@ namespace TestCase
         static void GetNextNodeGreedy(int[,] matrix, ref bool[] visited, ref int x, ref int y, int count)
         {
             int maxi = x, maxj = y;//Буфер поиска максимальных координат
-            int max = 0;//
+            int max = 0;
 
             //Проверяем все возможности - вправо, влево, вверх, вниз, находим максимальный существующий вариант
             if (x + 1 < 3) //Если не вышли за границы массива
@@ -113,6 +112,9 @@ namespace TestCase
                 }
 
 
+            x = maxi;
+            y = maxj;
+
             if (x == 1 && y == 1) //Если мы идем из центральной ноды
             {
                 if (count == 2 || count == 4) //На втором и четвертом шаге (когда жадина может застопориться)
@@ -120,17 +122,14 @@ namespace TestCase
                     var Tuple = Closest_unvisited(starti, startj, matrix, visited); //Вместо ноды, где максимальное значение, мы направляем его в ноду ближайшую к стартовому ноду.
                     x = Tuple.Item1;
                     y = Tuple.Item2;
-                    visited[matrix[x, y]] = true;
+
                 }
             }
-            else
-            {
+
                 //Из всех остальных нод
                 //После того как "жадный" вариант нашли, ставим ноду как посещенную, и смещаемся.
-                x = maxi;
-                y = maxj;
-                visited[matrix[x, y]] = true;
-            }
+               
+            visited[matrix[x, y]] = true;
 
 
             return;
